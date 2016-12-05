@@ -1,0 +1,274 @@
+html,body{
+  background: #ffffff;
+  font-family: PingFangSC-Regular;
+  color: #666666;
+  letter-spacing: 0;
+}
+*{
+  -webkit-tap-highlight-color:transparent;
+}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+#wrap{
+  max-width: 750px;
+  margin: auto;
+  font-size: .28rem;
+  background: #ffffff;
+  #heade{
+    padding: .8rem .5rem .8rem 1rem;
+    background: #FF348D;
+    background-image: linear-gradient(-135deg, #E9AE20 0%, #FFAA43 35%, #FF348D 100%);
+    .title{
+      position: relative;
+      padding: .43rem .6rem .43rem .9rem;
+      background: #FFFFFF;
+      box-shadow: 0px 40px 50px 0px rgba(0,0,0,0.20);
+    }
+    .picWrap{
+      position: absolute;
+      top: .30rem;
+      left: -.88rem;
+      width: 1.76rem;
+      height: 1.78rem;
+      border-radius: 50%;
+      overflow: hidden;
+      // background: #FFFFFF;
+      // box-shadow: 0px 30px 40px 0px rgba(0,0,0,0.10);
+      img{
+        display: block;
+        width: 100%;
+      }
+    }
+    p{
+      margin: 0;
+      font-size: .3rem;
+      color: #050706;
+      letter-spacing: 0px;
+      overflow: hidden;
+      line-height: .5rem;
+    }
+    .p-title{
+      font-family: PingFangSC-Regular;
+      font-size: .4rem;
+      color: #050706;
+      letter-spacing: 0;
+    }
+    .p-footer{
+      position: relative;
+      margin-top: .45rem;
+      text-indent: -999rem;
+      height: 100%;
+      background: url('/images/camera360.png') right no-repeat;
+      background-size: 1.31rem .16rem;
+      .line{
+        width: .5rem;
+        height: .02rem;
+        background: #eee;
+        position: absolute;
+        right: 1.43rem;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+
+      }
+    }
+    .pic{
+      display: block;
+    }
+    .ugcInfo{
+
+    }
+  }
+  #main{
+    padding: .6rem .5rem;
+    .formItem>label{
+      display: block;
+      margin-bottom: .2rem;
+      font-size: .28rem;
+      color: #B49190;
+      letter-spacing: .0279rem;
+      span{
+        color: #FF348D;
+      }
+    }
+    .formItem{
+      margin-bottom: .6rem;
+    }
+    .formIptWrap{
+      position: relative;
+      cursor: pointer;
+    }
+    .ipt{
+      outline: 0;
+    }
+    .ipt-1{
+      padding: 0 .2rem;
+      background: #F8F8F8;
+      border: .5px solid #E5E5E5;
+      border-radius: 2px;
+      overflow: hidden;
+      .ipt{
+        width: 100%;
+        height: .88rem;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: .34rem;
+        color: #333333;
+        letter-spacing: 0;
+      }
+    }
+    .ipt-2{
+      .radioWrap{
+        display: inline-block;
+        margin-right: .1rem;
+        width: .36rem;
+        height: .36rem;
+        border-radius: 50%;
+        border: 1px solid #CCCCCC;
+        overflow: hidden;
+        vertical-align: middle;
+      }
+      .on{
+        border: 1px solid #F5A623;
+        background: #F5A623;
+        background: url('/images/Rightsmall.png') no-repeat center;
+        background-size: 100%;
+      }
+      .play-item{
+        display: block;
+        line-height: .45rem;
+      }
+      .play-item {
+        margin-top: .2rem;
+      }
+      .otherWrap{
+        display: inline-block;
+        border-bottom: 1px solid #CCCCCC;
+        width: 5.1rem;
+        input{
+          outline: 0;
+          width: 100%;
+          border: 0;
+          background: transparent;
+        }
+      }
+      .ipt{
+        display: none;
+        opacity: 0;
+      }
+    }
+    .ipt-3{
+      width: 50%;
+      float: left;
+      text-align: center;
+      .typePic{
+        margin: auto;
+        width: 2.2rem;
+        height: 2.2rem;
+        // border-radius: 50%;
+        background: #fff;
+        background: #FFFFFF;
+        // box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.10);
+      }
+      .type-img{
+        background: url('/images/pic.png') no-repeat center;
+        background-size: 2.2rem;
+      }
+      .type-video{
+        background: url('/images/vedio.png') no-repeat center;
+        background-size: 2.2rem;
+      }
+      .on{
+        background: url('/images/right.png') no-repeat center;
+        background-size: 2.2rem;
+      }
+      .typeName{
+        display: block;
+        font-size: .26rem;
+        color: #666666;
+        letter-spacing: 0;
+      }
+      .ipt{
+        opacity: 0;
+      }
+    }
+    .ipt-4{
+      float: left;
+      width: 3.6rem;
+      height: 3.6rem;
+      border: 2px dashed #CCCCCC;
+      .line{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      .line-top{
+        width: .8rem;
+        height: .06rem;
+        background: #E5E5E5;
+        border-radius: 50px;
+      }
+      .line-left{
+        width: .06rem;
+        height: .8rem;
+        background: #E5E5E5;
+        border-radius: 50px;
+      }
+      .ipt{
+        border: 0;
+        background: transparent;
+        display: none;
+      }
+    }
+    .ipt-5{
+      padding: .2rem;
+      background: #F8F8F8;
+      border: 1px solid #E5E5E5;
+      border-radius: 2px;
+      overflow: hidden;
+      .textNum{
+        position: absolute;
+        right: .1rem;
+        bottom: .1rem;
+        font-size: .26rem;
+        color: #CCCCCC;
+        letter-spacing: 0;
+      }
+      .ipt{
+        display: block;
+        width: 100%;
+        min-height: 2.8rem;
+        background: transparent;
+        border: 0;
+        font-family: PingFangSC-Regular;
+        font-size: .28rem;
+        color: #666666;
+        letter-spacing: 0;
+        line-height: .44rem;
+      }
+    }
+    .btn{
+      margin: 0 auto;
+      display: block;
+      width: 4rem;
+      height: 1.2rem;
+      border: 0;
+      outline: 0;
+      background: #E5E5E5;
+      border-radius: 100px;
+      font-family: PingFangSC-Regular;
+      font-size: .34rem;
+      color: #999999;
+      letter-spacing: 0;
+      &.on{
+        color: #fff;
+        background: #FF348D;
+        background-image: linear-gradient(-90deg, #E9AE20 0%, #FFAA43 36%, #FF348D 100%);
+      }
+    }
+  }
+}

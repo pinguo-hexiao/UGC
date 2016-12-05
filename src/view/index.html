@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html style="font-size: 50px">
+  <head>
+    <meta charset="utf-8">
+    <title>yunle-template-gulp</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/base.css?rev=@@hash">
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            clientWidth = docEl.clientWidth;
+            clientHeight = docEl.clientHeight;
+            docEl.style.fontSize = ((100 * (clientWidth / 750)) >= 50 ? 50 : (100 * (clientWidth / 750))) + 'px';
+            var recalc = function () {
+                clientWidth = docEl.clientWidth;
+                clientHeight = docEl.clientHeight;
+                if (!clientWidth) return;
+                docEl.style.fontSize = ((100 * (clientWidth / 750)) >= 50 ? 50 : (100 * (clientWidth / 750))) + 'px';
+                console.log(clientWidth, docEl.style.fontSize);
+            };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="heade">
+        <div class="title">
+          <div class="picWrap">
+            <img src="/images/header.png" alt="" class="pic">
+          </div>
+          <div class="ugcInfo">
+            <p class="p-title">
+              Hi～Stephanie,
+            </p>
+            <p class="p-info">
+              挑战新玩法，由你来决定。
+            </p>
+            <p class="p-footer">
+              <i class="line"></i>camera360
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="main">
+        <form class="formWrap">
+          <div class="formItem clearfix">
+            <label for="">
+              挑战主题<span>＊</span>
+            </label>
+            <div class="formIptWrap ipt-1 clearfix">
+              <input type="text" class="ipt">
+            </div>
+          </div>
+          <div class="formItem clearfix">
+            <label for="">
+              玩法设置
+            </label>
+            <div class="formIptWrap ipt-2 clearfix">
+              <label class="play-item" for="">
+                <span class="radioWrap on">
+                  <input type="radio" class="ipt">
+                </span>
+                网友投票并排名
+              </label>
+            </div>
+            <div class="formIptWrap ipt-2 clearfix">
+              <label class="play-item" for="">
+                <span class="radioWrap">
+                  <input type="radio" class="ipt">
+                </span>
+                我来决定排名
+              </label>
+            </div>
+            <div class="formIptWrap ipt-2 clearfix">
+              <label class="play-item" for="">
+                <span class="radioWrap clearfix">
+                  <input type="radio" class="ipt">
+                </span>
+                不需要排名
+              </label>
+            </div>
+            <div class="formIptWrap ipt-2 clearfix">
+              <label class="play-item" for="">
+                <span class="radioWrap">
+                  <input type="radio" class="ipt">
+                </span>
+                其它
+                <div class="otherWrap">
+                  <input type="text" id="other">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="formItem clearfix">
+            <label for="">
+              挑战类型
+            </label>
+            <div class="formIptWrap ipt-3 clearfix">
+              <div class="typePic type-img"></div>
+              <span class="typeName">照片挑战</span>
+              <input type="radio" class="ipt">
+            </div>
+            <div class="formIptWrap ipt-3 clearfix">
+              <div class="typePic type-video"></div>
+              <span class="typeName">视频挑战</span>
+              <input type="radio" class="ipt">
+            </div>
+          </div>
+          <div class="formItem clearfix">
+            <label for="">
+              挑战封面
+            </label>
+            <div class="formIptWrap ipt-4 clearfix">
+              <input type="text" class="ipt">
+              <span class="line-top line"></span>
+              <span class="line-left line"></span>
+            </div>
+          </div>
+          <div class="formItem clearfix">
+            <label for="">
+              挑战描述
+            </label>
+            <div class="formIptWrap ipt-5 clearfix">
+              <span class="textNum">140</span>
+              <textarea class="ipt" name="text" ></textarea>
+            </div>
+          </div>
+          <div class="formItem clearfix">
+            <div class="formIptWrap clearfix">
+              <button class="btn" type="button" name="button">创建</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/base.js?rev=@@hash"></script>
+  </body>
+</html>

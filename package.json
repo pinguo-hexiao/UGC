@@ -1,0 +1,64 @@
+{
+  "name": "yunle-template-gulp",
+  "version": "0.0.1",
+  "description": "yunle template gulp",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build",
+    "build-html": "gulp build-html",
+    "build-less": "gulp build-less",
+    "build-images": "gulp build-images",
+    "build-eslint": "gulp build-eslint",
+    "build-script": "gulp build-script",
+    "test": "mocha  --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexiao-o/yunle-template-gulp.git"
+  },
+  "author": "hexiao-o",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hexiao-o/yunle-template-gulp/issues"
+  },
+  "homepage": "https://github.com/hexiao-o/yunle-template-gulp#readme",
+  "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "child_process": "^1.0.2",
+    "codecov": "^1.0.1",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.1",
+    "eslint-plugin-react": "^6.7.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cache": "^0.4.5",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.1.0",
+    "gulp-less": "^3.1.0",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev-append": "^0.1.6",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-useref": "^3.1.2",
+    "http-proxy-middleware": "^0.17.2",
+    "mocha": "^3.1.2",
+    "mockjs": "^1.0.1-beta3",
+    "node-mocks-http": "^1.5.4",
+    "through2": "^2.0.2"
+  },
+  "dependencies": {
+    "normalize.css": "^5.0.0"
+  }
+}
