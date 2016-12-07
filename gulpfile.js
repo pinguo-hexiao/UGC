@@ -72,7 +72,7 @@ gulp.task('build-less', function(){
 gulp.task('images', function () {
   return gulp.src('src/images/**.*')
       .on('error', handleErrors)
-      .pipe(gulp.dest('dist/images'))
+      .pipe(gulp.dest('.tmp/images'))
       .pipe($.notify("images 编译成功!"));
 });
 gulp.task('build-images', function () {
@@ -83,7 +83,7 @@ gulp.task('build-images', function () {
         interlaced: true
       })))
       .on('error', handleErrors)
-      .pipe(gulp.dest('.tmp/images'))
+      .pipe(gulp.dest('.dist/images'))
       .pipe($.notify("images 编译成功!"));
 });
 
