@@ -18,13 +18,13 @@
                 clientHeight = docEl.clientHeight;
                 if (!clientWidth) return;
                 docEl.style.fontSize = ((100 * (clientWidth / 750)) >= 50 ? 50 : (100 * (clientWidth / 750))) + 'px';
-                console.log(clientWidth, docEl.style.fontSize);
             };
             if (!doc.addEventListener) return;
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener('DOMContentLoaded', recalc, false);
         })(document, window);
     </script>
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
   </head>
   <body>
     <div id="wrap">
@@ -47,13 +47,13 @@
         </div>
       </div>
       <div id="main">
-        <form class="formWrap">
+        <form class="formWrap js-ugc-from">
           <div class="formItem clearfix">
             <label for="">
               挑战主题<span>＊</span>
             </label>
             <div class="formIptWrap ipt-1 clearfix">
-              <input type="text" class="ipt">
+              <input name="title" type="text" class="ipt js-ugc-title">
             </div>
           </div>
           <div class="formItem clearfix">
@@ -61,37 +61,37 @@
               玩法设置
             </label>
             <div class="formIptWrap ipt-2 clearfix">
-              <label class="play-item" for="">
-                <span class="radioWrap on">
-                  <input type="radio" class="ipt">
+              <label class="play-item" for="play-1">
+                <input id="play-1" name="play" value="1" type="radio" class="ipt js-ugc-play">
+                <span class="radioWrap">
                 </span>
                 网友投票并排名
               </label>
             </div>
             <div class="formIptWrap ipt-2 clearfix">
-              <label class="play-item" for="">
+              <label class="play-item" for="play-2">
+                <input id="play-2" name="play" value="2" type="radio" class="ipt js-ugc-play">
                 <span class="radioWrap">
-                  <input type="radio" class="ipt">
                 </span>
                 我来决定排名
               </label>
             </div>
             <div class="formIptWrap ipt-2 clearfix">
-              <label class="play-item" for="">
+              <label class="play-item" for="play-3">
+                <input id="play-3" name="play" value="3" type="radio" class="ipt js-ugc-play">
                 <span class="radioWrap clearfix">
-                  <input type="radio" class="ipt">
                 </span>
                 不需要排名
               </label>
             </div>
             <div class="formIptWrap ipt-2 clearfix">
-              <label class="play-item" for="">
+              <label class="play-item" for="play-4">
+                <input id="play-4" name="play" value="4" type="radio" class="ipt js-ugc-play">
                 <span class="radioWrap">
-                  <input type="radio" class="ipt">
                 </span>
                 其它
                 <div class="otherWrap">
-                  <input type="text" id="other">
+                  <input class="js-ugc-otherText" name="otherText" type="text" id="other">
                 </div>
               </label>
             </div>
@@ -101,43 +101,201 @@
               挑战类型
             </label>
             <div class="formIptWrap ipt-3 clearfix">
-              <div class="typePic type-img"></div>
-              <span class="typeName">照片挑战</span>
-              <input type="radio" class="ipt">
+              <label for="type-1">
+                <input id="type-1" name="type" value="1" type="radio" class="ipt js-ugc-type">
+                <div class="typePic type-img"></div>
+                <span class="typeName">照片挑战</span>
+              </label>
             </div>
             <div class="formIptWrap ipt-3 clearfix">
-              <div class="typePic type-video"></div>
-              <span class="typeName">视频挑战</span>
-              <input type="radio" class="ipt">
+              <label for="type-2">
+                <input id="type-2" name="type" value="2" type="radio" class="ipt js-ugc-type">
+                <div class="typePic type-video"></div>
+                <span class="typeName">照片挑战</span>
+              </label>
             </div>
           </div>
           <div class="formItem clearfix">
             <label for="">
               挑战封面
             </label>
-            <div class="formIptWrap ipt-4 clearfix">
-              <input type="text" class="ipt">
-              <span class="line-top line"></span>
-              <span class="line-left line"></span>
-            </div>
+            <label for="picUrl">
+              <div class="formIptWrap ipt-4 clearfix">
+                  <input id="picUrl" class="ipt js-ugc-pic" name="picUrl" type="file" accept="image/*"/>
+                  <span class="line-top line"></span>
+                  <span class="line-left line"></span>
+              </div>
+            </label>
           </div>
           <div class="formItem clearfix">
             <label for="">
               挑战描述
             </label>
             <div class="formIptWrap ipt-5 clearfix">
-              <span class="textNum">140</span>
-              <textarea class="ipt" name="text" ></textarea>
+              <span class="textNum js-describe-num">140</span>
+              <textarea class="ipt js-ugc-describe" name="describe" ></textarea>
             </div>
           </div>
           <div class="formItem clearfix">
             <div class="formIptWrap clearfix">
-              <button class="btn" type="button" name="button">创建</button>
+              <button class="btn js-create-btn" type="button" name="button">创建</button>
             </div>
           </div>
         </form>
       </div>
     </div>
+    <div style="display:none;"  class="gModal js-gModal">
+      <div class="modalBG js-gModal-bg"></div>
+      <div class="modalMan">
+        <div class="modalTitle js-gModal-title">提示</div>
+        <div class="modalBody js-gModal-body">
+          提交成功!
+        </div>
+        <div class="footer">
+          <button class="modalBtn js-gModal-clearBtn" type="button" name="button">取消</button>
+          <button class="modalBtn js-gModal-okBtn" type="button" name="button">确定</button>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript" src="/js/base.js?rev=@@hash"></script>
+    <script type="text/javascript">
+      // UGC
+      $(function() {
+        var postData = {
+          describe: '',
+          otherText: '',
+          picUrl: '',
+          play: '',
+          title: '',
+          type: '',
+        },postName = {
+          describe: '挑战描述',
+          otherText: '其它玩法',
+          picUrl: '挑战封面',
+          play: '玩法设置',
+          title: '挑战主题',
+          type: '挑战类型',
+        };
+        var _ugc = new UgcJsSDK({
+          host: '/task/ugc',
+        });
+        var _modal = new ModalJsSDK({});
+        console.log(_modal);
+        // 挑战主题
+        $(".js-ugc-title").on('change blur focus keydown keyup', function() {
+          var $that = $(this);
+          var val = $that.val();
+          postData.title = val;
+          hasData(postData)
+        });
+        // 玩法设置
+        $(".js-ugc-play").on('change blur focus keydown keyup', function() {
+          var $that = $(this);
+          var val = $that.val();
+          $('.radioWrap').removeClass('on');
+          $that.next('.radioWrap').addClass('on');
+          postData.play = parseInt(val);
+          hasData(postData)
+        });
+        $(".js-ugc-otherText").on('change blur focus keydown keyup', function() {
+          var $that = $(this);
+          var val = $that.val();
+          postData.otherText = parseInt(val);
+          hasData(postData)
+        });
+        // 挑战类型
+        $(".js-ugc-type").on('change blur focus keydown keyup', function() {
+          var $that = $(this);
+          var val = $that.val();
+          $('.typePic').removeClass('on');
+          $that.next('.typePic').addClass('on');
+          postData.type = parseInt(val);
+          hasData(postData)
+        });
+        // 挑战封面
+        $(".js-ugc-pic").on('change blur focus keydown keyup', function() {
+          var $that = $(this);
+          postData.picUrl = 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2516614602,2816475662&fm=80&w=179&h=119&img.JPEG';
+          var form_data = new FormData();
+          // 获取文件
+          var file_data = $that.prop("files")[0];
+          // 把所以表单信息
+          form_data.append("name", "test");
+          form_data.append("img", file_data);
+          _ugc.upData('/', file_data, function(err, url) {
+            if (!err) {
+              postData.picUrl = url;
+              $that.parent('.ipt-4').addClass('showImg').css('background', url);
+              hasData(postData)
+            }
+          });
+        });
+        // 挑战描述
+        textNum(postData);
+        // 提交表单
+        var hasSubmit = false;
+        $('.js-create-btn').click(function() {
+          var $that = $(this);
+          var err = hasData(postData);
+          if (!err && !hasSubmit) {
+            hasSubmit = true;
+            $that.text = '正在努力提交中...';
+            _ugc.postUGC(postData, function(err, msg) {
+              hasSubmit = false;
+              $that.text = '提交';
+              if (!err) {
+                console.log(msg);
+                window.location.href = "/info?id="+msg.data
+              }
+            });
+          } else {
+            console.log('请填写完整表单: ', postName[err]);
+            _modal.setTitle('err');
+            _modal.setBody('请填写完整表单');
+            _modal.show();
+          }
+        });
+      });
+      // 字数计算
+      function textNum(postData) {
+        var $describe = $('.js-ugc-describe');
+        var $num = $('.js-describe-num');
+        $describe.on('change blur focus keydown keyup', function() {
+          hasTextNum($(this).val(), postData);
+        });
+        function hasTextNum(text, postData) {
+          var _num = 140 - text.length;
+          if (_num < 0) {
+            $num.addClass('err');
+          } else if ($num.hasClass('err')) {
+            $num.removeClass('err');
+          }
+          $num.text(_num);
+          postData.describe = text;
+          hasData(postData)
+        }
+      }
+      // 验证数据
+      function hasData(postData) {
+        var $btn = $('.js-create-btn');
+        var err = null;
+        for (var i in postData) {
+          if (!postData[i]) {
+            if (i === 'otherText' && postData.play != 4) {
+
+            } else {
+              err = i;
+              break
+            }
+          }
+        }
+        if (!err) {
+          $btn.addClass('on');
+        } else {
+          $btn.removeClass('on');
+        }
+        return err;
+      }
+    </script>
   </body>
 </html>
