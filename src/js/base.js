@@ -5,13 +5,10 @@
     this.config = {
       host: config.host || ''
     }
-    this.getID = function getQueryString(name) {
-      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null) {
-        return unescape(r[2]);
-      }
-      return null;
+    this.getQuery = function getQueryString(key) {
+      var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+      var result = window.location.search.substr(1).match(reg);
+      return result?decodeURIComponent(result[2]):null;
     }
     this.createAjax = function(url,type, data, cb) {
       $.ajax({
@@ -21,7 +18,7 @@
         dataType: "json",
         success: function(data){
           var err = null;
-          if (data.stata !== 200) {
+          if (data.starus !== 200 && data.message !== 'ok') {
             err = data.message;
           }
           cb ? cb(err, data) : null;
@@ -34,13 +31,17 @@
     this.upData = function(url, form_data, cb) {
       $.ajax({
         type: "POST",
-        url: "....",
+        url: url,
         dataType : "json",
         processData: false,
         contentType: false,
         data: form_data,
         success: function(data){
-          cb ? cb(null, data) : null;
+          var err = null;
+          if (data.starus !== 200) {
+            err = data.message;
+          }
+          cb ? cb(err, data) : null;
         },
         error: function(err) {
           cb ? cb(err) : null
@@ -66,51 +67,68 @@
   global.UgcJsSDK = UgcJsSDK;
 })(window, $);
 
-;(function(global, $){
-  $(function(){
-    var ModalJsSDK = function(config) {
-      var that = this;
-      this.config = {
-        title: '',
-        body: '',
-        ok: config.ok,
-        clear: config.clear
-      }
-      var $gModal = $('js-gModal'),
-          $gModalTitle = $('js-gModal-title'),
-          $gModalBG = $('js-gModal-bg'),
-          $gModalBody = $('js-gModal-body'),
-          $gModalClearBtn = $('js-gModal-clearBtn'),
-          $gModalOkBtn = $('js-gModal-okBtn');
-      this.show = function() {
-        $gModal.show();
-        $('html').addClass('showImg');
-      }
-      this.hede = function(){
-        $gModal.hide();
-        $('html').removeClass('showImg');
-      }
-      this.setTitle = function(title) {
-        $gModalTitle.text(title);
-      }
-      this.setBody = function(body) {
-        $gModalBody.text(body);
-      }
-      $gModalBG.on('click', function(){
-        that.hede();
-        this.config.clear ? this.config.clear() : null;
-      });
-      $gModalClearBtn.on('click', function(){
-        that.hede();
-        this.config.clear ? this.config.clear() : null;
-      });
+
+$(function(){
+  var ModalJsSDK = function(config) {
+    var that = this;
+    this.config = {
+      title: '',
+      body: '',
+      ok: config.ok,
+      clear: config.clear
+    }
+    var $gModal = $('.js-gModal'),
+        $gModalTitle = $('.js-gModal-title'),
+        $gModalBG = $('.js-gModal-bg'),
+        $gModalBody = $('.js-gModal-body'),
+        $gModalClearBtn = $('.js-gModal-clearBtn'),
+        $gModalOkBtn = $('.js-gModal-okBtn');
+    this.show = function(data, time) {
+      this.setTitle(data.title);
+      this.setBody(data.body);
+      that.setHandleClear(data.clear);
+      that.setHandleOK(data.ok);
+      $gModal.show();
+      $('html').addClass('showImg');
+    }
+    this.hede = function(){
+      $gModal.hide();
+      $('html').removeClass('showImg');
+    }
+    this.setTitle = function(title) {
+      $gModalTitle.text(title);
+    }
+    this.setBody = function(body) {
+      $gModalBody.text(body);
+    }
+    this.setHandleOK = function(fun) {
       $gModalOkBtn.on('click', function(){
         that.hede();
-        this.config.ok ? this.config.ok() : null;
+        typeof fun === 'function' ? fun() : null;
       });
-      this.setTitle(this.config.title);
-      this.setBody(this.config.body);
     }
-    global.ModalJsSDK = ModalJsSDK;
-  })
-})(window, $);
+    this.setHandleClear = function(fun) {
+      $gModalClearBtn.on('click', function(){
+        that.hede();
+        typeof fun === 'function' ? fun() : null;
+      });
+      $gModalBG.on('click', function(){
+        that.hede();
+        typeof fun === 'function' ? fun() : null;
+      });
+    }
+    $gModalBG.on('click', function(){
+      that.hede();
+      typeof that.config.clear === 'function' ? that.config.clear() : null;
+    });
+    $gModalClearBtn.on('click', function(){
+      that.hede();
+      typeof that.config.clear === 'function' ? that.config.clear() : null;
+    });
+    $gModalOkBtn.on('click', function(){
+      that.hede();
+      typeof that.config.ok === 'function' ? that.config.ok() : null;
+    });
+  }
+  window.ModalJsSDK = ModalJsSDK;
+})

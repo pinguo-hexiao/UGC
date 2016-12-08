@@ -35,10 +35,14 @@
           </div>
           <div class="ugcInfo">
             <p class="p-title">
-              Hi～Stephanie,
+              Hi～<span class="js-ugc-uname"></span>,
             </p>
             <p class="p-info">
-              挑战新玩法，由你来决定。
+              <span class="locLan zh">你创建了挑战</span>
+              <span class="locLan en">You created a challenge</span>
+              <span class="locLan th">คุณสร้างการแข่งขัน</span>
+              <span class="locLan yl">Bạn đã tạo ra một thử thách</span>
+              <span class="locLan yn">Kamu membuat tantangan</span>
             </p>
             <p class="p-footer">
               <i class="line"></i>camera360
@@ -47,12 +51,11 @@
         </div>
       </div>
       <div id="main">
-        <div class="info-box">
-          <h2 class="info-title js-info-title">你敢素颜自拍么？</h2>
-          <p class="info-describe js-info-describe">你本来就很美，丢掉美颜相机，秀出最真实的自己！你敢应战么？</p>
-          <p class="info-play js-info-play">视频挑战，我来决定排名</p>
-          <p class="info-picUrl">
-            <img class="info-pic js-info-picUrl" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2516614602,2816475662&fm=80&w=179&h=119&img.JPEG" alt="" />
+        <div style="display:none;" class="info-box">
+          <h2 style="display:none;" class="info-title js-info-title"></h2>
+          <p style="display:none;" class="info-describe js-info-describe"></p>
+          <p style="display:none;" class="info-play js-info-play"></p>
+          <p style="display:none;" class="info-picUrl js-info-picUrl">
           </p>
         </div>
         <form class="formWrap js-ugc-from">
@@ -65,11 +68,19 @@
             </div>
           </div>
           <p class="info-getContact">
-            这挑战真不错，感谢你的反馈，请留下你的联系方式，以便我们能够联系到你。
+            <span class="locLan zh">这挑战真不错，感谢你的反馈，请留下你的联系方式，以便我们能够联系到你。</span>
+            <span class="locLan en">This Challenge looks cool, thanks for your feedback; please leave your contact info so we can reach you</span>
+            <span class="locLan th">การแข่งขันนี้ดูแจ่มมาก ขอบคุณสำหรับความคิดเห็นของคุณ กรุณาให้ข้อมูลที่ติดต่อของคุณเพื่อให้เราสามารถติดต่อคุณได้</span>
+            <span class="locLan yl">Thử thách này nhìn rất tuyệt, cảm ơn phản hồi của bạn; hãy để lại thông tin liên lạc của bạn để chúng tôi có thể liên hệ với bạn</span>
+            <span class="locLan yn">Tantangan ini kayaknya keren, makasih A1:H18 ya; tulis info kontakmu supaya bisa kami hubungi</span>
           </p>
           <div class="formItem clearfix">
             <label for="">
-              手机或邮箱
+              <span class="locLan zh">手机或邮箱</span>
+              <span class="locLan en">Email/Phone</span>
+              <span class="locLan th">อีเมล์ / โทรศัพท์</span>
+              <span class="locLan yl">Email/điện thoại</span>
+              <span class="locLan yn">Email/nomor HP</span>
             </label>
             <div class="formIptWrap ipt-1 clearfix">
               <input name="contact" type="text" class="ipt js-ugc-contact">
@@ -77,7 +88,13 @@
           </div>
           <div class="formItem clearfix">
             <div class="formIptWrap clearfix">
-              <button class="btn js-create-btn" type="button" name="button">创建</button>
+              <a href="javascript:;" class="btn js-create-btn">
+                <span class="locLan zh">提交</span>
+                <span class="locLan en">Submit</span>
+                <span class="locLan th">ส่ง</span>
+                <span class="locLan yl">Gửi</span>
+                <span class="locLan yn">Kirim</span>
+              </a>
             </div>
           </div>
         </form>
@@ -106,11 +123,20 @@
         var _ugc = new UgcJsSDK({
           host: '/task/ugc',
         });
-        postData.id = _ugc.getID('id');
-        _ugc.getUGC(postData, function(err, data) {
+        var loc = _ugc.getQuery('loc') ? _ugc.getQuery('loc') : 'zh';
+        $('html').attr('class', 'lan-' + loc);
+        $('.js-ugc-uname').text(_ugc.getQuery('name') || '');
+        var _modal = new ModalJsSDK({});
+        postData.id = _ugc.getQuery('id');
+        _ugc.getUGC({id: postData.id}, function(err, data) {
           if(!err) {
-            renderInfo(data);
+            renderInfo(data.data);
+            return;
           }
+          _modal.show({
+            title: 'error',
+            body: err
+          });
         });
         // 挑战主题
         $(".js-ugc-contact").on('change blur focus keydown keyup', function() {
@@ -131,11 +157,22 @@
             hasSubmit = false;
             $that.text = '提交';
             if (!err) {
-              console.log(msg);
+              _modal.show({
+                title: 'success',
+                body: '提交成功！'
+              });
+              return;
             }
+            _modal.show({
+              title: 'error',
+              body: err
+            });
           });
           } else {
-            console.log('请填写完整表单: ', err);
+            _modal.show({
+              title: 'error',
+              body: '请填写你的联系方式！'
+            });
           }
         });
       });
@@ -144,12 +181,15 @@
       function hasData(postData) {
         var $btn = $('.js-create-btn');
         var err = null;
-        var phone = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        var email = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(!phone.test(postData.contact)){
-          if (!email.test(postData.contact)) {
-            err = '请输入正确手机号或者邮箱';
-          }
+        // var phone = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        // var email = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        // if(!phone.test(postData.contact)){
+        //   if (!email.test(postData.contact)) {
+        //     err = '请输入正确手机号或者邮箱';
+        //   }
+        // }
+        if (!postData.contact) {
+          err = '请输入正确手机号或者邮箱';
         }
         if (!err) {
           $btn.addClass('on');
@@ -161,12 +201,22 @@
       // 渲染
       function renderInfo(data) {
         var $infoTitle = $('.js-info-title'),
+            $infoBox = $('.info-box'),
             $infoDescribe = $('.js-info-describe'),
             $infoPlay = $('.js-info-play'),
             $infoPicUrl = $('.js-info-picUrl');
-        $infoTitle.text(data.title);
-        $infoDescribe.text(data.describe);
-        var playText = '';
+        if (data.title) {
+          $infoTitle.text(data.title);
+          $infoBox.show();
+          $infoTitle.show();
+        }
+        if (data.describe) {
+          $infoDescribe.text(data.describe);
+          $infoBox.show();
+          $infoDescribe.show();
+        }
+
+        var playText = undefined;
         playText = (data.type == 1 ? '照片挑战,' : '视频挑战,');
         switch(data.play) {
           case 1:
@@ -182,10 +232,18 @@
           playText += data.otherText;
           break;
           default:
-           playText += null;
+           playText = undefined;
         }
-        $infoPlay.text(playText);
-        $infoPicUrl.src(data.title);
+        if (playText) {
+          $infoPlay.text(playText);
+          $infoBox.show();
+          $infoPlay.show();
+        }
+        if (data.picUrl) {
+          $infoPicUrl.append('<img class="info-pic" src="'+ data.picUrl +'" alt="" />');
+          $infoBox.show();
+          $infoPicUrl.show();
+        }
       }
     </script>
   </body>
