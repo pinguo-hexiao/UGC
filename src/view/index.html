@@ -299,7 +299,7 @@
           readImage(this, function(src){
             $that.parent('.ipt-4').addClass('showImg').css('background-image', 'url('+src+')');
           });
-          _ugc.upData('http://activity-test.camera360.com/task/common/newUpload/browser', file_data, function(err, data) {
+          _ugc.upData('http://activity-test.camera360.com/common/newUpload/browser', file_data, function(err, data) {
             if (!err) {
               postData.picUrl = data.data.imageUrl;
               $that.parent('.ipt-4').addClass('showImg').css('background-image', 'url('+data.data.imageUrl+')');

@@ -32,7 +32,7 @@
       $.ajax({
         type: "POST",
         url: url,
-        dataType : "json",
+        dataType : "jsonp",
         processData: false,
         contentType: false,
         data: form_data,
@@ -41,6 +41,7 @@
           if (data.starus !== 200) {
             err = data.message;
           }
+          console.log(data);
           cb ? cb(err, data) : null;
         },
         error: function(err) {
