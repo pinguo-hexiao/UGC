@@ -28,6 +28,27 @@
         }
       });
     }
+    this.pv = function(cb) {
+      $.ajax({
+        type: 'post',
+        url: 'http://activity-test.camera360.com/common/statistic/index',
+        data: {
+          id: 'ugc01',
+          type: 'ugc'
+        },
+        dataType: "jsonp",
+        success: function(data){
+          var err = null;
+          if (data.starus !== 200 && data.message !== 'ok') {
+            err = data.message;
+          }
+          cb ? cb(err, data) : null;
+        },
+        error: function(err) {
+          cb ? cb(err) : null
+        }
+      });
+    }
     this.upData = function(url, form_data, cb) {
       $.ajax({
         type: "POST",

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script>
+			window.parent.uploadCallback(window.location.search);
+		</script>
+
+    <!-- build:js /scripts/base.min.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/PGPromise/dist/PGPromise.min.js"></script>
+    <script src="/bower_components/PGServer/dist/PGServer.min.js"></script>
+    <script src="/bower_components/PGBridge/dist/PGBridge.min.js"></script>
+    <script src="/bower_components/PGCommon/dist/PGCommon.js"></script>
+    <script src="/bower_components/swiper/dist/js/swiper.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js /scripts/index/index.js -->
+        <!-- endbuild -->
+	</body>
+</html>
