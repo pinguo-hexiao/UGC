@@ -139,14 +139,41 @@
         _ugc.pv();
         var _locale = ['en','zh','th','vi','in'];
         var loc = _ugc.getQuery('locale') ? _ugc.getQuery('locale').substring(0, 2) : 'en';
-        for (var i = 0; i < _locale.length; i++) {
-          if (_locale[i] == loc) {
-            loc = _locale[i];
-            break;
-          }
-        }
+        var uname = _ugc.getQuery('name') || '';
+        var PGTools = new PGTool();
+        PGTools.getNativeInfo(function(res) {
+          console.log('getNativeInfo', res);
+          var result = res.result || {};
+          var language = result.language || '';
+          loc = language ? language.substring(0, 2) : 'en';
+          $('html').attr('class', 'lan-' + loc);
+          $('.js-ugc-uname').text(uname);
+        });
+        PGTools.pgLogin(function(res){
+          var userInfo = PGTools.dealNativeUserInfo(res);
+          var result = res.result || {};
+          var name = result.name || '';
+          console.log('paLogin', userInfo);
+          uname = name;
+          $('html').attr('class', 'lan-' + loc);
+          $('.js-ugc-uname').text(uname);
+          //userInfo = {
+          //    status:"200",
+          //    result: {
+          //        mobile: '18782929290',
+          //        uid: 'dawdeqweqwe',
+          //        userToken: 'ndjasnjdasd'
+          //    }
+          //};
+       });
+       for (var i = 0; i < _locale.length; i++) {
+         if (_locale[i] == loc) {
+           loc = _locale[i];
+           break;
+         }
+       }
         $('html').attr('class', 'lan-' + loc);
-        $('.js-ugc-uname').text(_ugc.getQuery('name') || '');
+        $('.js-ugc-uname').text(uname);
         var _modal = new ModalJsSDK({});
         postData.id = _ugc.getQuery('id');
         _ugc.getUGC({id: postData.id}, function(err, data) {
